@@ -83,79 +83,84 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="container mx-auto max-w-6xl mt-20 md:mt-0"> <!-- Added margin-top to account for fixed header in image -->
-        <h1 class="text-4xl font-extrabold text-white text-center mb-12 animate-fade-in-down">
-            U-Board
-        </h1>
+        <!-- The main container for all existing cards (now 5% transparent) - full width -->
+        <!-- Added 'relative' positioning to this container so the button can be absolutely positioned within it -->
+        <div class="bg-white bg-opacity-50 rounded-xl p-8 shadow-lg backdrop-filter backdrop-blur-sm border border-white border-opacity-20 relative">
+            <h1 class="text-4xl font-extrabold text-emerald-800 text-center mb-6 animate-fade-in-down">
+                U-Board
+            </h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Card 1: Remaining CL -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-indigo-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Casual Leave (CL)</h2>
-                <p class="text-4xl font-bold text-indigo-600">5 <span class="text-lg font-normal text-gray-500">days</span></p>
-                <p class="text-sm text-gray-500 mt-2">As of June 10, 2025</p>
-            </div>
+            <!-- Floating button to open AI assistant - now positioned absolutely within this relative parent -->
+            <!-- Positioned at bottom-4 right-4, with transparent background and larger icon -->
+            <button id="openAssistantBtn" class="absolute bottom-4 right-4 bg-transparent hover:bg-transparent text-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                <!-- PNG image icon for the AI assistant - Corrected URL and increased size -->
+                <img src="https://raw.githubusercontent.com/ShauryaRawat10/Credit-Card-Management-System/064f78428c05134166c0f94b912ddf7b6c913795/Chatassistant.png" alt="AI Assistant Icon" class="w-12 h-12 rounded-full">
+            </button>
 
-            <!-- Card 2: Remaining EL -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-emerald-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Earned Leave (EL)</h2>
-                <p class="text-4xl font-bold text-emerald-600">12 <span class="text-lg font-normal text-gray-500">days</span></p>
-                <p class="text-sm text-gray-500 mt-2">Accrued up to last month</p>
-            </div>
-
-            <!-- Card 3: Next Pay Date -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-orange-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Next Pay Date</h2>
-                <p class="text-4xl font-bold text-orange-600">July 1, 2025</p>
-                <p class="text-sm text-gray-500 mt-2">Get ready for your paycheck!</p>
-            </div>
-
-            <!-- Card 4: Password Expire Date -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-red-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Password Expiry Date</h2>
-                <p class="text-4xl font-bold text-red-600">Aug 15, 2025</p>
-                <p class="text-sm text-gray-500 mt-2">Change your password before it expires.</p>
-            </div>
-
-            <!-- Card 5: UChoose Claim & Balance (Combined) -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-sky-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">UChoose Program</h2>
-                <div class="flex justify-between items-end mb-2">
-                    <div>
-                        <p class="text-sm text-gray-500">Next Claim Date:</p>
-                        <p class="text-2xl font-bold text-sky-600">Sept 30, 2025</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm text-gray-500">Current Balance:</p>
-                        <p class="text-2xl font-bold text-sky-600">8597 INR</p>
-                    </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"> <!-- Adjusted grid columns for larger screens -->
+                <!-- Card 1: Remaining CL -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-indigo-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Casual Leave (CL)</h2>
+                    <p class="text-4xl font-bold text-indigo-600">5 <span class="text-lg font-normal text-gray-500">days</span></p>
+                    <p class="text-sm text-gray-500 mt-2">As of June 10, 2025</p>
                 </div>
-                <p class="text-sm text-gray-500 mt-2">Manage your UChoose claims and balance.</p>
-            </div>
 
-            <!-- Card 6: Upcoming Holiday -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-purple-500 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Upcoming Holiday</h2>
-                <p class="text-4xl font-bold text-purple-600">Independence Day</p>
-                <p class="text-sm text-gray-500 mt-2">July 4, 2025</p>
-            </div>
+                <!-- Card 2: Remaining EL -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-emerald-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Earned Leave (EL)</h2>
+                    <p class="text-4xl font-bold text-emerald-600">12 <span class="text-lg font-normal text-gray-500">days</span></p>
+                    <p class="text-sm text-gray-500 mt-2">Accrued up to last month</p>
+                </div>
 
-            <!-- NEW Customizable Card -->
-            <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-gray-400 card-blur-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Your Custom Info</h2>
-                <p class="text-2xl font-bold text-gray-600 break-words" contenteditable="true" spellcheck="false">
-                    Click to add your own important notes or reminders here.
-                </p>
-                <p class="text-sm text-gray-500 mt-2">Double-click to edit</p>
+                <!-- Card 3: Next Pay Date -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-orange-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Next Pay Date</h2>
+                    <p class="text-4xl font-bold text-orange-600">July 1, 2025</p>
+                    <p class="text-sm text-gray-500 mt-2">Get ready for your paycheck!</p>
+                </div>
+
+                <!-- Card 4: Password Expire Date -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-red-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Password Expiry Date</h2>
+                    <p class="text-4xl font-bold text-red-600">Aug 15, 2025</p>
+                    <p class="text-sm text-gray-500 mt-2">Change your password before it expires.</p>
+                </div>
+
+                <!-- Card 5: UChoose Claim & Balance (Combined) -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-sky-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">UChoose Program</h2>
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <p class="text-sm text-gray-500">Next Claim Date:</p>
+                            <p class="text-2xl font-bold text-sky-600">Sept 30, 2025</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-500">Current Balance:</p>
+                            <p class="text-2xl font-bold text-sky-600">8597 INR</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">Manage your UChoose claims and balance.</p>
+                </div>
+
+                <!-- Card 6: Upcoming Holiday -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-purple-500 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Upcoming Holiday</h2>
+                    <p class="text-4xl font-bold text-purple-600">Independence Day</p>
+                    <p class="text-sm text-gray-500 mt-2">July 4, 2025</p>
+                </div>
+
+                <!-- NEW Customizable Card -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-gray-400 card-blur-effect">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Your Custom Info</h2>
+                    <p class="text-2xl font-bold text-gray-600 break-words" contenteditable="true" spellcheck="false">
+                        Click to add your own important notes or reminders here.
+                    </p>
+                    <p class="text-sm text-gray-500 mt-2">Double-click to edit</p>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Floating button to open AI assistant -->
-    <button id="openAssistantBtn" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-    </button>
 
     <!-- Modal Backdrop -->
     <div id="modalBackdrop" class="modal-backdrop hidden"></div>
@@ -163,7 +168,7 @@
     <!-- AI Assistant Modal (initially hidden) -->
     <div id="aiAssistantBar" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 md:w-2/3 lg:w-1/2 xl:w-2/5 max-h-[80vh] bg-white rounded-xl shadow-2xl z-50 transform scale-0 opacity-0 transition-all duration-300 ease-in-out flex flex-col">
         <div class="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex justify-between items-center rounded-t-xl">
-            <h2 class="text-xl font-semibold">AI Assistant</h2>
+            <h2 class="text-xl font-semibold">UKG-Bot</h2>
             <button id="closeAssistantBtn" class="text-white hover:text-gray-200 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -223,7 +228,7 @@
             // Hide after animation
             aiAssistantBar.addEventListener('animationend', function handler() {
                 aiAssistantBar.classList.add('hidden');
-                modalBackrop.classList.add('hidden'); // Hide backdrop
+                modalBackdrop.classList.add('hidden'); // Corrected typo here
                 aiAssistantBar.removeEventListener('animationend', handler);
             });
         }
