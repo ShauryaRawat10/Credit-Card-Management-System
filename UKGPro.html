@@ -24,7 +24,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://raw.githubusercontent.com/ShauryaRawat10/Credit-Card-Management-System/main/webpage.png');
+            background-image: url('https://raw.githubusercontent.com/ShauryaRawat10/Credit-Card-Management-System/main/UKGPro_homepage.png');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -79,85 +79,246 @@
             position: relative;
             z-index: 1; /* Ensure content is above the blurred background pseudo-element */
         }
+
+        /* FLIP CARD STYLES */
+        /* Apply perspective to the grid container to enable 3D transformations for children */
+        .grid {
+            perspective: 1000px; /* Defines the depth of the 3D scene for children */
+        }
+
+        .flip-card {
+            display: flex;
+            min-height: 288px; /* Increased from 224px to 288px (130% of 224px is approx 291px, using Tailwind h-72 equivalent) */
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            display: flex; /* Ensure inner also uses flex to fill space */
+            flex-direction: column; /* Allow content to stack */
+            justify-content: center; /* Center content vertically */
+        }
+
+        /* When the 'flipped' class is added to .flip-card, rotate the inner element */
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center content horizontally */
+            box-sizing: border-box;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background-color: rgba(67, 56, 202, 0.9); /* Default back side color */
+            color: white;
+            text-align: center; /* Ensure text alignment for back side */
+        }
+
+        /* Custom font size for text-xxs */
+        .text-xxs {
+            font-size: 0.65rem; /* Smaller than xs (0.75rem) */
+            line-height: 0.85rem;
+        }
+
+        /* Specific back side colors for better distinction */
+        .flip-card-back.indigo-back { background-color: rgba(79, 70, 229, 0.9); }
+        .flip-card-back.emerald-back { background-color: rgba(16, 185, 129, 0.9); }
+        .flip-card-back.orange-back { background-color: rgba(249, 115, 22, 0.9); }
+        .flip-card-back.red-back { background-color: rgba(239, 68, 68, 0.9); }
+        .flip-card-back.sky-back { background-color: rgba(14, 165, 233, 0.9); }
+        .flip-card-back.purple-back { background-color: rgba(168, 85, 247, 0.9); }
+        .flip-card-back.gray-back { background-color: rgba(107, 114, 128, 0.9); }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="container mx-auto max-w-6xl mt-20 md:mt-0"> <!-- Added margin-top to account for fixed header in image -->
-        <!-- The main container for all existing cards (now 5% transparent) - full width -->
-        <!-- Added 'relative' positioning to this container so the button can be absolutely positioned within it -->
+        <!-- The main container for all dashboard content -->
         <div class="bg-white bg-opacity-50 rounded-xl p-8 shadow-lg backdrop-filter backdrop-blur-sm border border-white border-opacity-20 relative">
             <h1 class="text-4xl font-extrabold text-white text-center mb-6 animate-fade-in-down">
                 U-Board
             </h1>
 
-            <!-- Floating button to open AI assistant - now positioned absolutely within this relative parent -->
-            <!-- Positioned at bottom-4 right-4, with transparent background and larger icon -->
-            <button id="openAssistantBtn" class="absolute bottom-4 right-4 bg-transparent hover:bg-transparent text-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
-                <!-- PNG image icon for the AI assistant - Corrected URL and increased size -->
-                <img src="https://raw.githubusercontent.com/ShauryaRawat10/Credit-Card-Management-System/064f78428c05134166c0f94b912ddf7b6c913795/Chatassistant.png" alt="AI Assistant Icon" class="w-12 h-12 rounded-full">
+            <!-- Floating button to open AI assistant (bottom-right) -->
+            <button id="openAssistantBtn" class="absolute bottom-4 right-4 bg-transparent hover:bg-transparent text-white p-4 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none">
+                <img src="https://raw.githubusercontent.com/ShauryaRawat10/Credit-Card-Management-System/main/pngtree-chatbot-color-icon-chat-bot-png-image_5258006.png" alt="AI Assistant Icon" class="w-16 h-16 ">
             </button>
-
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"> <!-- Adjusted grid columns for larger screens -->
+            <h2 class="text-2xl font-semibold text-white mb-6 mt-16 text-center">Your Dashboard Overview</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr grid-flow-row-dense">
                 <!-- Card 1: Remaining CL -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-indigo-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Casual Leave (CL)</h2>
-                    <p class="text-4xl font-bold text-indigo-600">5 <span class="text-lg font-normal text-gray-500">days</span></p>
-                    <p class="text-sm text-gray-500 mt-2">As of June 10, 2025</p>
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-indigo-500 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Casual Leave (CL)</h2>
+                        </div>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back indigo-back">
+                            <h2 class="text-xl font-bold text-white mb-2">Remaining Casual Leave (CL)</h2>
+                            <p class="text-xl font-bold text-white">5 <span class="text-xl font-normal">days</span></p>
+                            <p class="text-xxs text-indigo-100 mt-2">As of June 11, 2025</p>
+                            <p class="text-xs">Accrued: 10 days</p>
+                            <p class="text-xs">Used: 5 days</p>
+                            <p class="text-xs">Balance: 5 days</p>
+                            <p class="text-xxs mt-4 text-indigo-100">Click again to flip back</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Card 2: Remaining EL -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-emerald-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Earned Leave (EL)</h2>
-                    <p class="text-4xl font-bold text-emerald-600">12 <span class="text-lg font-normal text-gray-500">days</span></p>
-                    <p class="text-sm text-gray-500 mt-2">Accrued up to last month</p>
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-emerald-500 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Remaining Earned Leave (EL)</h2>
+                        </div>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back emerald-back">
+                            <h2 class="text-xl font-bold text-white mb-2">Remaining Earned Leave (EL)</h2>
+                            <p class="text-xl font-bold text-white">12 <span class="text-xl font-normal">days</span></p>
+                            <p class="text-xxs text-emerald-100 mt-2">Accrued up to last month</p>
+                            <p class="text-xs">Accrued: 15 days</p>
+                            <p class="text-xs">Used: 3 days</p>
+                            <p class="text-xs">Balance: 12 days</p>
+                            <p class="text-xxs mt-4 text-emerald-100">Click again to flip back</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Card 3: Next Pay Date -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-orange-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Next Pay Date</h2>
-                    <p class="text-4xl font-bold text-orange-600">July 1, 2025</p>
-                    <p class="text-sm text-gray-500 mt-2">Get ready for your paycheck!</p>
-                </div>
-
-                <!-- Card 4: Password Expire Date -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-red-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Password Expiry Date</h2>
-                    <p class="text-4xl font-bold text-red-600">Aug 15, 2025</p>
-                    <p class="text-sm text-gray-500 mt-2">Change your password before it expires.</p>
-                </div>
-
-                <!-- Card 5: UChoose Claim & Balance (Combined) -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-sky-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">UChoose Program</h2>
-                    <div class="flex justify-between items-end mb-2">
-                        <div>
-                            <p class="text-sm text-gray-500">Next Claim Date:</p>
-                            <p class="text-2xl font-bold text-sky-600">Sept 30, 2025</p>
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-orange-500 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Next Pay Date</h2>
                         </div>
-                        <div class="text-right">
-                            <p class="text-sm text-gray-500">Current Balance:</p>
-                            <p class="text-2xl font-bold text-sky-600">8597 INR</p>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back orange-back">
+                            <h2 class="text-xl font-bold text-white mb-2">Next Pay Date</h2>
+                            <br>
+                            <p class="text-xl font-bold text-white">July 1, 2025</p>
+                            <p class="text-xxs text-orange-100 mt-2">Get ready for your paycheck!</p>
+                            <p class="text-xs">Last Pay: June 1, 2025</p>
+                            <p class="text-xxs mt-4 text-orange-100">Click again to flip back</p>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2">Manage your UChoose claims and balance.</p>
+                </div>
+                
+                <!-- Card 5: UChoose Claim & Balance (Combined) - Now at bottom-left and spans 2 rows -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-sky-500 card-blur-effect flip-card row-span-2">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">U-Choose Program</h2>
+                        </div>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back sky-back">
+                            <h2 class="text-xl font-bold text-white mb-2">U-Choose Program</h2>
+                            <br>
+                            <div class="flex justify-between items-end mb-2 w-full px-4">
+                                <div>
+                                    <p class="text-xxs font-bold text-white mb-2">Next Claim Date:</p>
+                                    <p class="text-xl font-bold text-white mb-2">Sept 30</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xxs font-bold text-white mb-2">Current Balance:</p>
+                                    <p class="text-xl font-bold text-white mb-2">8597 INR</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-sky-100 mt-2">Manage your UChoose claims and balance.</p>
+                            <h3 class="text-sm font-bold mt-4 mb-2">UChoose Details</h3>
+                            <p class="text-xs">Last Claim: May 1, 2025</p>
+                            <p class="text-xs">Total Claims YTD: 2</p>
+                            <p class="text-xs">Next Claim Approval: 3 days</p>
+                            <p class="text-xxs mt-4 text-sky-100">Click again to flip back</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Card 6: Upcoming Holiday -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-purple-500 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Upcoming Holiday</h2>
-                    <p class="text-4xl font-bold text-purple-600">Independence Day</p>
-                    <p class="text-sm text-gray-500 mt-2">July 4, 2025</p>
+                <!-- Card 4: Password Expire Date - Shifted to the right by order -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-red-500 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Password Expiry Date</h2>
+                        </div>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back red-back">
+                            <h2 class="text-xl font-bold text-white mb-2">Password Expiry Date</h2>
+                            <p class="text-xl font-bold text-white">Aug 15, 2025</p>
+                            <p class="text-xxs text-red-100 mt-2">Change your password before it expires.</p>
+                            <p class="text-xs">Last Changed: Feb 15, 2025</p>
+                            <p class="text-xs">Policy: 180 days</p>
+                            <p class="text-xxs mt-4 text-red-100">Click again to flip back</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 6: Upcoming Holiday - Now at bottom-middle and spans 2 rows -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-purple-500 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Upcoming Holiday</h2>
+                        </div>
+                        <!-- Back Side Content (Value, date, and additional details) -->
+                        <div class="flip-card-back purple-back">
+                            <h2 class="text-xl font-bold text-white mb-2">Upcoming Holiday</h2>
+                            <p class="text-xl font-bold text-white">Independence Day</p>
+                            <p class="text-xxs text-purple-100 mt-2">July 4, 2025</p>
+                            <p class="text-xs">Upcoming: Labor Day (Sept 1, 2025)</p>
+                            <p class="text-xs">Past: Memorial Day (May 26, 2025)</p>
+                            <p class="text-xs">Next Major: Christmas (Dec 25, 2025)</p> <!-- Added new holiday -->
+                            <p class="text-xxs mt-4 text-purple-100">Click again to flip back</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- NEW Customizable Card -->
-                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-gray-400 card-blur-effect">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-2">Your Custom Info</h2>
-                    <p class="text-2xl font-bold text-gray-600 break-words" contenteditable="true" spellcheck="false">
-                        Click to add your own important notes or reminders here.
-                    </p>
-                    <p class="text-sm text-gray-500 mt-2">Double-click to edit</p>
+                <!-- NEW Customizable Card - Shifted to bottom-right by order -->
+                <div class="rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ease-in-out border-b-4 border-gray-400 card-blur-effect flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Front Side Content (Title only) -->
+                        <div class="flip-card-front">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Your Custom Info</h2>
+                        </div>
+                        <!-- Back Side Content (Editable content and additional details) -->
+                        <div class="flip-card-back gray-back">
+                            <p class="text-base font-bold text-white break-words" contenteditable="true" spellcheck="false">
+                                Click to add your own important notes or reminders here.
+                            </p>
+                            <p class="text-xxs text-gray-100 mt-2">Double-click to Add</p>
+                            <h3 class="text-sm font-bold mt-4 mb-2">More Notes</h3>
+                            <p class="text-xs text-white" contenteditable="true" spellcheck="false">
+                                This is where you can write down more detailed personal notes on the back.
+                            </p>
+                            <p class="text-xxs mt-4 text-gray-100">Click again to flip back</p>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -168,7 +329,7 @@
     <!-- AI Assistant Modal (initially hidden) -->
     <div id="aiAssistantBar" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 md:w-2/3 lg:w-1/2 xl:w-2/5 max-h-[80vh] bg-white rounded-xl shadow-2xl z-50 transform scale-0 opacity-0 transition-all duration-300 ease-in-out flex flex-col">
         <div class="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex justify-between items-center rounded-t-xl">
-            <h2 class="text-xl font-semibold">UKG-Bot</h2>
+            <h2 class="text-xl font-semibold">U-Board AI Assistant</h2>
             <button id="closeAssistantBtn" class="text-white hover:text-gray-200 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -180,7 +341,7 @@
             <!-- Chat messages will be appended here -->
             <div class="flex justify-start mb-4">
                 <div class="bg-gray-200 text-gray-800 p-3 rounded-xl rounded-bl-none shadow-sm max-w-xs">
-                    Hello! I'm your AI assistant. How can I help you with UKG Pro today?
+                    Hello Oliver!, Thanks for contacting UKG U-Board AI assistant. My name is Pro-Bot and I am here to assist you. Please ask me anything and I'll be happy to assist you.
                 </div>
             </div>
             <div id="loadingIndicator" class="flex justify-center items-center py-4 hidden">
@@ -199,8 +360,8 @@
             </div>
         </div>
     </div>
-
     <script>
+        // Get references to DOM elements
         const openAssistantBtn = document.getElementById('openAssistantBtn');
         const closeAssistantBtn = document.getElementById('closeAssistantBtn');
         const aiAssistantBar = document.getElementById('aiAssistantBar');
@@ -209,29 +370,43 @@
         const chatHistory = document.getElementById('chatHistory');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const modalBackdrop = document.getElementById('modalBackdrop');
+        
+        // Get all flip cards
+        const flipCards = document.querySelectorAll('.flip-card');
 
         // Function to show the AI assistant modal
         function showAssistant() {
-            aiAssistantBar.classList.remove('scale-0', 'opacity-0');
-            aiAssistantBar.classList.add('fade-in');
+            aiAssistantBar.classList.remove('scale-0', 'opacity-0'); // Remove initial hidden states
+            aiAssistantBar.classList.add('fade-in'); // Trigger fade-in animation
             aiAssistantBar.classList.remove('hidden'); // Ensure it's not hidden
-            modalBackdrop.classList.add('active');
+            modalBackdrop.classList.add('active'); // Activate backdrop for dimming
             modalBackdrop.classList.remove('hidden'); // Ensure backdrop is not hidden
         }
 
         // Function to hide the AI assistant modal
         function hideAssistant() {
-            aiAssistantBar.classList.remove('fade-in');
-            aiAssistantBar.classList.add('fade-out');
-            modalBackdrop.classList.remove('active');
+            aiAssistantBar.classList.remove('fade-in'); // Remove fade-in to allow fade-out
+            aiAssistantBar.classList.add('fade-out'); // Trigger fade-out animation
+            modalBackdrop.classList.remove('active'); // Deactivate backdrop
 
-            // Hide after animation
+            // Hide after animation completes to avoid immediate disappearance
             aiAssistantBar.addEventListener('animationend', function handler() {
-                aiAssistantBar.classList.add('hidden');
-                modalBackdrop.classList.add('hidden'); // Corrected typo here
-                aiAssistantBar.removeEventListener('animationend', handler);
+                aiAssistantBar.classList.add('hidden'); // Hide the modal after animation
+                modalBackdrop.classList.add('hidden'); // Hide the backdrop after animation
+                aiAssistantBar.removeEventListener('animationend', handler); // Remove event listener to prevent multiple calls
             });
         }
+
+        // Event listener for each flip card to toggle the 'flipped' class
+        // Now, clicking any card will flip ALL cards.
+        flipCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Loop through all cards and toggle the 'flipped' class on each one
+                flipCards.forEach(c => {
+                    c.classList.toggle('flipped');
+                });
+            });
+        });
 
         // Event listeners for opening and closing the assistant
         openAssistantBtn.addEventListener('click', showAssistant);
@@ -248,61 +423,37 @@
             textBubble.classList.add('p-3', 'rounded-xl', 'shadow-sm', 'max-w-xs');
 
             if (sender === 'user') {
-                messageDiv.classList.add('justify-end');
-                textBubble.classList.add('bg-blue-500', 'text-white', 'rounded-br-none');
+                messageDiv.classList.add('justify-end'); // Align user messages to the right
+                textBubble.classList.add('bg-blue-500', 'text-white', 'rounded-br-none'); // User message bubble style
             } else {
-                messageDiv.classList.add('justify-start');
-                textBubble.classList.add('bg-gray-200', 'text-gray-800', 'rounded-bl-none');
+                messageDiv.classList.add('justify-start'); // Align assistant messages to the left
+                textBubble.classList.add('bg-gray-200', 'text-gray-800', 'rounded-bl-none'); // Assistant message bubble style
             }
 
-            textBubble.innerText = message;
-            messageDiv.appendChild(textBubble);
-            chatHistory.appendChild(messageDiv);
+            textBubble.innerText = message; // Set message text
+            messageDiv.appendChild(textBubble); // Add bubble to message div
+            chatHistory.appendChild(messageDiv); // Add message div to chat history
 
             // Scroll to the latest message
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
-        // Handle sending prompt
+        // Handle sending prompt to the AI assistant
         sendPromptBtn.addEventListener('click', async () => {
-            const prompt = promptInput.value.trim();
-            if (prompt === '') return;
+            const prompt = promptInput.value.trim(); // Get and trim the input value
+            if (prompt === '') return; // Do nothing if prompt is empty
 
-            addMessage('user', prompt);
-            promptInput.value = ''; // Clear input
+            addMessage('user', prompt); // Add user's message to chat history
+            promptInput.value = ''; // Clear input field
 
             loadingIndicator.classList.remove('hidden'); // Show loading indicator
 
-            try {
-                let chatHistoryArr = [];
-                chatHistoryArr.push({ role: "user", parts: [{ text: prompt }] });
-                const payload = { contents: chatHistoryArr };
-                const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    addMessage('assistant', text);
-                } else {
-                    addMessage('assistant', 'Sorry, I could not get a response. Please try again.');
-                    console.error('Unexpected API response structure:', result);
-                }
-            } catch (error) {
-                addMessage('assistant', 'An error occurred while fetching the response.');
-                console.error('Error calling Gemini API:', error);
-            } finally {
+            // The chatbot will now always respond with this specific message for demoing purposes.
+            // The original Gemini API call has been replaced.
+            setTimeout(() => {
+                addMessage('assistant', 'Oliver, your remaining CAB claim limit is 1590 RS. Your last claim was on May 29th, 2025 worth 410 RS.');
                 loadingIndicator.classList.add('hidden'); // Hide loading indicator
-            }
+            }, 1000); // Simulate a short delay for the response
         });
     </script>
 </body>
